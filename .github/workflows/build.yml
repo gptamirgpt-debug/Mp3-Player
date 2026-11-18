@@ -8,6 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Unpack Amirify bundle
+        run: |
+          python3 - <<'PY'
+          import re, os
+          src = open("amirify-bundle.txt", encoding="utf-8").read()
+          parts = re.split(r"^=====FILE: (.+?) =====\n", src, flags=re.M)
+          for i in range(1, len(parts), 2):
+              path = parts[i].strip()
+              os.makedirs(os.path.dirname(path), exist_ok=True)
+              with open(path, "w", encoding="utf-8", newline="\n") as f:
+                  f.write(parts[i + 1])
+          print("unpacked", (len(parts) - 1) // 2, "files")
+          PY
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -19,5 +32,5 @@ jobs:
         run: gradle assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: MP3Player-APK
+          name: Amirify-APK
           path: app/build/outputs/apk/debug/app-debug.apk
