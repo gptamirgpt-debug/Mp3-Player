@@ -1,0 +1,1517 @@
+Amirify source bundle v2 - unpacked automatically by the GitHub workflow.
+=====FILE: app/src/main/AndroidManifest.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="Amirify"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Amirify">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".PlaybackService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>
+=====FILE: app/src/main/res/values/colors.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#0F0D17</color>
+    <color name="surface">#1A1726</color>
+    <color name="accent">#B388FF</color>
+    <color name="accent_dark">#7C4DFF</color>
+    <color name="pink">#FF6FB5</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#A9A3BD</color>
+</resources>
+=====FILE: app/src/main/res/values/themes.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Amirify" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/accent_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/surface</item>
+    </style>
+</resources>
+=====FILE: app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
+=====FILE: app/src/main/res/drawable/ic_launcher_background.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="108"
+                android:endY="108"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#FF4A2BFF" android:offset="0.0" />
+                <item android:color="#FFB23CFD" android:offset="0.55" />
+                <item android:color="#FFFF5FA2" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>
+=====FILE: app/src/main/res/drawable/ic_launcher_foreground.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M35,81 L54,27 L73,81"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="9" />
+    <path
+        android:pathData="M49.5,60 L49.5,72"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M54,54 L54,78"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M58.5,60 L58.5,72"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_play.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M8,5v14l11,-7z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_pause.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M6,19h4V5H6v14zM14,5v14h4V5h-4z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_next.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M6,18l8.5,-6L6,6v12zM16,6v12h2V6h-2z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_prev.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M6,6h2v12H6zM9.5,12l8.5,6V6z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_shuffle.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M10.59,9.17L5.41,4 4,5.41l5.17,5.17 1.42,-1.41zM14.5,4l2.04,2.04L4,18.59 5.41,20 17.96,7.46 20,9.5V4h-5.5zM14.83,13.41l-1.41,1.41 3.13,3.13L14.5,20H20v-5.5l-2.04,2.04 -3.13,-3.13z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_repeat.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M7,7h10v3l4,-4 -4,-4v3H5v6h2V7zM17,17H7v-3l-4,4 4,4v-3h12v-6h-2v4z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_repeat_one.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M7,7h10v3l4,-4 -4,-4v3H5v6h2V7zM17,17H7v-3l-4,4 4,4v-3h12v-6h-2v4zM13,15V9h-1l-2,1v1h1.5v4H13z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_heart.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_heart_outline.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M16.5,3c-1.74,0 -3.41,0.81 -4.5,2.09C10.91,3.81 9.24,3 7.5,3 4.42,3 2,5.42 2,8.5c0,3.78 3.4,6.86 8.55,11.54L12,21.35l1.45,-1.32C18.6,15.36 22,12.28 22,8.5 22,5.42 19.58,3 16.5,3zM12.1,18.55l-0.1,0.1 -0.1,-0.1C7.14,14.24 4,11.39 4,8.5 4,6.5 5.5,5 7.5,5c1.54,0 3.04,0.99 3.57,2.36h1.87C13.46,5.99 14.96,5 16.5,5c2,0 3.5,1.5 3.5,3.5 0,2.89 -3.14,5.74 -7.9,10.05z" />
+</vector>
+=====FILE: app/src/main/res/drawable/ic_music_note.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,3v10.55c-0.59,-0.34 -1.27,-0.55 -2,-0.55 -2.21,0 -4,1.79 -4,4s1.79,4 4,4 4,-1.79 4,-4V7h4V3h-6z" />
+</vector>
+=====FILE: app/src/main/res/drawable/bg_player.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface" />
+    <corners
+        android:topLeftRadius="28dp"
+        android:topRightRadius="28dp" />
+</shape>
+=====FILE: app/src/main/res/drawable/bg_play_button.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:angle="315"
+        android:endColor="#FF5FA2"
+        android:startColor="#7C4DFF" />
+</shape>
+=====FILE: app/src/main/res/drawable/bg_art.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="#6B2D5C"
+        android:startColor="#3A2A6B" />
+    <corners android:radius="12dp" />
+</shape>
+=====FILE: app/src/main/res/layout/activity_main.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Amirify"
+            android:textColor="@color/accent"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        app:tabIndicatorColor="@color/accent"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="scrollable"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/text_primary"
+        app:tabTextColor="@color/text_secondary" />
+
+    <TextView
+        android:id="@+id/tvSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp"
+        android:textColor="@color/accent"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="4dp"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="32dp"
+            android:textAlignment="center"
+            android:textColor="@color/text_secondary"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_player"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_art"
+                android:clipToOutline="true">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:src="@drawable/ic_music_note" />
+
+                <ImageView
+                    android:id="@+id/playerArt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnFav"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="favorite"
+                android:focusable="true"
+                android:padding="11dp"
+                android:src="@drawable/ic_heart_outline"
+                android:tint="@color/text_secondary" />
+        </LinearLayout>
+
+        <com.amir.mp3player.WaveformView
+            android:id="@+id/wave"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvElapsed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0:00"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="0:00"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnShuffle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="shuffle"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_shuffle"
+                android:tint="@color/text_secondary" />
+
+            <ImageView
+                android:id="@+id/btnPrev"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="previous"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_prev"
+                android:tint="@color/text_primary" />
+
+            <ImageView
+                android:id="@+id/btnPlay"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_play_button"
+                android:clickable="true"
+                android:contentDescription="play"
+                android:focusable="true"
+                android:padding="20dp"
+                android:src="@drawable/ic_play" />
+
+            <ImageView
+                android:id="@+id/btnNext"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="next"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_next"
+                android:tint="@color/text_primary" />
+
+            <ImageView
+                android:id="@+id/btnRepeat"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="repeat"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_repeat"
+                android:tint="@color/text_secondary" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+=====FILE: app/src/main/res/layout/item_song.xml =====
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="8dp">
+
+    <FrameLayout
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/bg_art"
+        android:clipToOutline="true">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:alpha="0.7"
+            android:src="@drawable/ic_music_note" />
+
+        <ImageView
+            android:id="@+id/art"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnHeart"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="favorite"
+        android:focusable="true"
+        android:padding="11dp"
+        android:src="@drawable/ic_heart_outline"
+        android:tint="@color/text_secondary" />
+</LinearLayout>
+=====FILE: app/src/main/java/com/amir/mp3player/Store.kt =====
+package com.amir.mp3player
+
+import android.content.Context
+import org.json.JSONObject
+
+object Store {
+
+    private fun prefs(c: Context) = c.getSharedPreferences("amirify", Context.MODE_PRIVATE)
+
+    fun favorites(c: Context): Set<Long> {
+        val raw: Set<String> = prefs(c).getStringSet("fav", emptySet()) ?: emptySet()
+        return raw.mapNotNull { it.toLongOrNull() }.toSet()
+    }
+
+    fun toggleFavorite(c: Context, id: Long): Boolean {
+        val current: Set<String> = prefs(c).getStringSet("fav", emptySet()) ?: emptySet()
+        val set = HashSet<String>(current)
+        val key = id.toString()
+        val nowFav = if (set.contains(key)) {
+            set.remove(key)
+            false
+        } else {
+            set.add(key)
+            true
+        }
+        prefs(c).edit().putStringSet("fav", set).apply()
+        return nowFav
+    }
+
+    fun recordPlay(c: Context, id: Long) {
+        val p = prefs(c)
+        val counts = JSONObject(p.getString("counts", "{}") ?: "{}")
+        val last = JSONObject(p.getString("last", "{}") ?: "{}")
+        val k = id.toString()
+        counts.put(k, counts.optInt(k, 0) + 1)
+        last.put(k, System.currentTimeMillis())
+        p.edit()
+            .putString("counts", counts.toString())
+            .putString("last", last.toString())
+            .apply()
+    }
+
+    fun playCounts(c: Context): Map<Long, Int> {
+        val o = JSONObject(prefs(c).getString("counts", "{}") ?: "{}")
+        val m = HashMap<Long, Int>()
+        val keys = o.keys()
+        while (keys.hasNext()) {
+            val k = keys.next()
+            val id = k.toLongOrNull() ?: continue
+            m[id] = o.optInt(k, 0)
+        }
+        return m
+    }
+
+    fun lastPlayed(c: Context): Map<Long, Long> {
+        val o = JSONObject(prefs(c).getString("last", "{}") ?: "{}")
+        val m = HashMap<Long, Long>()
+        val keys = o.keys()
+        while (keys.hasNext()) {
+            val k = keys.next()
+            val id = k.toLongOrNull() ?: continue
+            m[id] = o.optLong(k, 0L)
+        }
+        return m
+    }
+}
+=====FILE: app/src/main/java/com/amir/mp3player/ArtLoader.kt =====
+package com.amir.mp3player
+
+import android.content.Context
+import android.graphics.Bitmap
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.util.LruCache
+import android.util.Size
+import android.widget.ImageView
+import java.util.concurrent.Executors
+
+object ArtLoader {
+    private val cache = LruCache<Long, Bitmap>(120)
+    private val pool = Executors.newFixedThreadPool(2)
+    private val main = Handler(Looper.getMainLooper())
+
+    fun load(context: Context, song: Song, view: ImageView, sizePx: Int) {
+        view.tag = song.id
+        val cached = cache.get(song.id)
+        if (cached != null) {
+            view.setImageBitmap(cached)
+            return
+        }
+        view.setImageDrawable(null)
+        if (Build.VERSION.SDK_INT < 29) return
+        val app = context.applicationContext
+        pool.execute {
+            val bmp: Bitmap? = try {
+                app.contentResolver.loadThumbnail(song.uri, Size(sizePx, sizePx), null)
+            } catch (e: Exception) {
+                null
+            }
+            if (bmp != null) {
+                cache.put(song.id, bmp)
+                main.post {
+                    if (view.tag == song.id) view.setImageBitmap(bmp)
+                }
+            }
+        }
+    }
+}
+=====FILE: app/src/main/java/com/amir/mp3player/WaveformExtractor.kt =====
+package com.amir.mp3player
+
+import android.content.Context
+import android.media.MediaCodec
+import android.media.MediaExtractor
+import android.media.MediaFormat
+import android.net.Uri
+import java.io.File
+import java.nio.ByteOrder
+
+object WaveformExtractor {
+
+    private fun file(ctx: Context, id: Long) = File(ctx.filesDir, "wave_" + id + ".bin")
+
+    fun cached(ctx: Context, id: Long): FloatArray? {
+        val f = file(ctx, id)
+        if (!f.exists()) return null
+        return try {
+            val b = f.readBytes()
+            if (b.isEmpty()) null else FloatArray(b.size) { (b[it].toInt() and 0xFF) / 255f }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun save(ctx: Context, id: Long, peaks: FloatArray) {
+        try {
+            file(ctx, id).writeBytes(
+                ByteArray(peaks.size) { (peaks[it].coerceIn(0f, 1f) * 255f).toInt().toByte() }
+            )
+        } catch (e: Exception) {
+        }
+    }
+
+    // A nice-looking placeholder wave shown until the real one is ready.
+    fun pseudo(seed: Long, n: Int): FloatArray {
+        val r = java.util.Random(seed)
+        var prev = 0.5f
+        return FloatArray(n) {
+            prev = prev * 0.55f + (0.25f + r.nextFloat() * 0.75f) * 0.45f
+            prev.coerceIn(0.12f, 1f)
+        }
+    }
+
+    // Decodes the song in the background and returns the loudness of each of the [bars] slices.
+    fun extract(ctx: Context, uri: Uri, bars: Int, cancelled: () -> Boolean): FloatArray? {
+        val extractor = MediaExtractor()
+        var codec: MediaCodec? = null
+        try {
+            extractor.setDataSource(ctx, uri, null)
+            var track = -1
+            var found: MediaFormat? = null
+            for (i in 0 until extractor.trackCount) {
+                val f = extractor.getTrackFormat(i)
+                val m = f.getString(MediaFormat.KEY_MIME) ?: ""
+                if (m.startsWith("audio/")) {
+                    track = i
+                    found = f
+                    break
+                }
+            }
+            val format = found ?: return null
+            if (track < 0) return null
+            if (!format.containsKey(MediaFormat.KEY_DURATION)) return null
+            val durationUs = format.getLong(MediaFormat.KEY_DURATION)
+            if (durationUs <= 0L) return null
+            val mime = format.getString(MediaFormat.KEY_MIME) ?: return null
+            extractor.selectTrack(track)
+
+            val dec = MediaCodec.createDecoderByType(mime)
+            codec = dec
+            dec.configure(format, null, null, 0)
+            dec.start()
+
+            val peaks = FloatArray(bars)
+            val info = MediaCodec.BufferInfo()
+            var inputDone = false
+            var outputDone = false
+            var idle = 0
+
+            while (!outputDone) {
+                if (cancelled()) return null
+
+                if (!inputDone) {
+                    val inIdx = dec.dequeueInputBuffer(5000)
+                    if (inIdx >= 0) {
+                        val buf = dec.getInputBuffer(inIdx)
+                        val size = if (buf != null) extractor.readSampleData(buf, 0) else -1
+                        if (size < 0) {
+                            dec.queueInputBuffer(inIdx, 0, 0, 0L, MediaCodec.BUFFER_FLAG_END_OF_STREAM)
+                            inputDone = true
+                        } else {
+                            dec.queueInputBuffer(inIdx, 0, size, extractor.sampleTime, 0)
+                            extractor.advance()
+                        }
+                    }
+                }
+
+                val outIdx = dec.dequeueOutputBuffer(info, 5000)
+                if (outIdx >= 0) {
+                    idle = 0
+                    if (info.size > 0) {
+                        val out = dec.getOutputBuffer(outIdx)
+                        if (out != null) {
+                            out.position(info.offset)
+                            out.limit(info.offset + info.size)
+                            val sb = out.order(ByteOrder.LITTLE_ENDIAN).asShortBuffer()
+                            val total = sb.remaining()
+                            var peak = 0
+                            var k = 0
+                            while (k < total) {
+                                val v = Math.abs(sb.get(k).toInt())
+                                if (v > peak) peak = v
+                                k += 4
+                            }
+                            val bar = ((info.presentationTimeUs * bars) / durationUs)
+                                .toInt().coerceIn(0, bars - 1)
+                            val p = peak / 32768f
+                            if (p > peaks[bar]) peaks[bar] = p
+                        }
+                    }
+                    dec.releaseOutputBuffer(outIdx, false)
+                    if ((info.flags and MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0) outputDone = true
+                } else {
+                    idle++
+                    if (idle > 2000) return null
+                }
+            }
+
+            var max = 0f
+            for (p in peaks) if (p > max) max = p
+            if (max <= 0f) return null
+            for (i in peaks.indices) {
+                peaks[i] = Math.sqrt((peaks[i] / max).toDouble()).toFloat().coerceIn(0.08f, 1f)
+            }
+            return peaks
+        } catch (e: Exception) {
+            return null
+        } finally {
+            try {
+                codec?.stop()
+            } catch (e: Exception) {
+            }
+            try {
+                codec?.release()
+            } catch (e: Exception) {
+            }
+            try {
+                extractor.release()
+            } catch (e: Exception) {
+            }
+        }
+    }
+}
+=====FILE: app/src/main/java/com/amir/mp3player/WaveformView.kt =====
+package com.amir.mp3player
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
+
+class WaveformView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
+
+    var peaks: FloatArray = FloatArray(0)
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var progress: Float = 0f
+        set(value) {
+            field = value.coerceIn(0f, 1f)
+            invalidate()
+        }
+
+    var onSeekStart: (() -> Unit)? = null
+    var onSeekChange: ((Float) -> Unit)? = null
+    var onSeekEnd: ((Float) -> Unit)? = null
+
+    private val playedPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.parseColor("#B388FF")
+        strokeCap = Paint.Cap.ROUND
+    }
+    private val restPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.parseColor("#4DFFFFFF")
+        strokeCap = Paint.Cap.ROUND
+    }
+    private var dragging = false
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        val n = if (peaks.isEmpty()) 72 else peaks.size
+        val w = width.toFloat()
+        val h = height.toFloat()
+        val slot = w / n
+        val stroke = slot * 0.56f
+        playedPaint.strokeWidth = stroke
+        restPaint.strokeWidth = stroke
+        val minHalf = stroke / 2f
+        for (i in 0 until n) {
+            val p = if (peaks.isEmpty()) 0.12f else peaks[i]
+            val half = maxOf(minHalf, p * h * 0.5f * 0.92f)
+            val x = slot * (i + 0.5f)
+            val paint = if ((i + 0.5f) / n <= progress) playedPaint else restPaint
+            canvas.drawLine(x, h / 2f - half, x, h / 2f + half, paint)
+        }
+    }
+
+    override fun onTouchEvent(e: MotionEvent): Boolean {
+        if (width == 0) return true
+        val f = (e.x / width).coerceIn(0f, 1f)
+        when (e.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                parent?.requestDisallowInterceptTouchEvent(true)
+                dragging = true
+                onSeekStart?.invoke()
+                progress = f
+                onSeekChange?.invoke(f)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (dragging) {
+                    progress = f
+                    onSeekChange?.invoke(f)
+                }
+            }
+            MotionEvent.ACTION_UP -> {
+                if (dragging) {
+                    dragging = false
+                    progress = f
+                    onSeekEnd?.invoke(f)
+                    performClick()
+                }
+            }
+            MotionEvent.ACTION_CANCEL -> {
+                if (dragging) {
+                    dragging = false
+                    onSeekEnd?.invoke(progress)
+                }
+            }
+        }
+        return true
+    }
+
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+}
+=====FILE: app/src/main/java/com/amir/mp3player/PlaybackService.kt =====
+package com.amir.mp3player
+
+import android.content.Intent
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.session.MediaSession
+import androidx.media3.session.MediaSessionService
+
+class PlaybackService : MediaSessionService() {
+    private var mediaSession: MediaSession? = null
+
+    override fun onCreate() {
+        super.onCreate()
+        val player = ExoPlayer.Builder(this)
+            .setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
+                    .setUsage(C.USAGE_MEDIA)
+                    .build(),
+                true
+            )
+            .setHandleAudioBecomingNoisy(true)
+            .setWakeMode(C.WAKE_MODE_LOCAL)
+            .build()
+
+        // Count every song that starts playing, even when the screen is off.
+        player.addListener(object : Player.Listener {
+            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                val id = mediaItem?.mediaId?.toLongOrNull() ?: return
+                Store.recordPlay(applicationContext, id)
+            }
+        })
+
+        mediaSession = MediaSession.Builder(this, player).build()
+    }
+
+    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? = mediaSession
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        val player = mediaSession?.player
+        if (player == null || !player.playWhenReady || player.mediaItemCount == 0) {
+            stopSelf()
+        }
+    }
+
+    override fun onDestroy() {
+        mediaSession?.run {
+            player.release()
+            release()
+            mediaSession = null
+        }
+        super.onDestroy()
+    }
+}
+=====FILE: app/src/main/java/com/amir/mp3player/SongAdapter.kt =====
+package com.amir.mp3player
+
+import android.content.res.ColorStateList
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.amir.mp3player.databinding.ItemSongBinding
+
+// One row in the list: a song, or an album (albumKey != null).
+data class Row(
+    val song: Song?,
+    val title: String,
+    val subtitle: String,
+    val albumKey: String?
+)
+
+class SongAdapter(
+    private val onRowClick: (Row) -> Unit,
+    private val onFavClick: (Song) -> Unit
+) : RecyclerView.Adapter<SongAdapter.VH>() {
+
+    private var rows: List<Row> = emptyList()
+    private var favs: Set<Long> = emptySet()
+    private var currentId: Long = -1L
+
+    fun submit(list: List<Row>, favorites: Set<Long>) {
+        rows = list
+        favs = favorites
+        notifyDataSetChanged()
+    }
+
+    fun setCurrent(id: Long) {
+        if (id != currentId) {
+            currentId = id
+            notifyDataSetChanged()
+        }
+    }
+
+    class VH(val b: ItemSongBinding) : RecyclerView.ViewHolder(b.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
+        VH(ItemSongBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
+    override fun getItemCount(): Int = rows.size
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val row = rows[position]
+        val ctx = holder.b.root.context
+        val song = row.song
+        val isSongRow = row.albumKey == null && song != null
+        val isCurrent = isSongRow && song != null && song.id == currentId
+
+        holder.b.title.text = row.title
+        holder.b.subtitle.text = row.subtitle
+        holder.b.title.setTextColor(
+            ContextCompat.getColor(ctx, if (isCurrent) R.color.accent else R.color.text_primary)
+        )
+
+        if (song != null) {
+            ArtLoader.load(ctx, song, holder.b.art, 128)
+        } else {
+            holder.b.art.setImageDrawable(null)
+        }
+
+        if (isSongRow && song != null) {
+            val fav = favs.contains(song.id)
+            holder.b.btnHeart.visibility = View.VISIBLE
+            holder.b.btnHeart.setImageResource(if (fav) R.drawable.ic_heart else R.drawable.ic_heart_outline)
+            holder.b.btnHeart.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(ctx, if (fav) R.color.pink else R.color.text_secondary)
+            )
+            holder.b.btnHeart.setOnClickListener { onFavClick(song) }
+        } else {
+            holder.b.btnHeart.visibility = View.GONE
+        }
+
+        holder.b.root.setOnClickListener { onRowClick(row) }
+    }
+}
+=====FILE: app/src/main/java/com/amir/mp3player/MainActivity.kt =====
+package com.amir.mp3player
+
+import android.Manifest
+import android.content.ComponentName
+import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
+import androidx.media3.common.Player
+import androidx.media3.session.MediaController
+import androidx.media3.session.SessionToken
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.amir.mp3player.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.common.util.concurrent.ListenableFuture
+import java.util.Locale
+import java.util.concurrent.Executors
+
+class MainActivity : AppCompatActivity() {
+
+    private enum class Section { ALL, FAV, ADDED, RECENT, MOST, ALBUMS }
+
+    private val tabTitles = listOf(
+        "همه", "علاقه‌مندی", "تازه‌ها", "اخیراً پخش‌شده", "پرپخش‌ها", "آلبوم‌ها"
+    )
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: SongAdapter
+    private var songs: List<Song> = emptyList()
+    private var shown: List<Song> = emptyList()
+    private var favs: Set<Long> = emptySet()
+    private var section = Section.ALL
+    private var albumOpen: String? = null
+
+    private var controllerFuture: ListenableFuture<MediaController>? = null
+    private var controller: MediaController? = null
+    private val handler = Handler(Looper.getMainLooper())
+    private var userSeeking = false
+    private var showRemaining = false
+    private var currentSongId = -1L
+
+    @Volatile
+    private var waveFor = -1L
+    private val waveExecutor = Executors.newSingleThreadExecutor()
+
+    private val ticker = object : Runnable {
+        override fun run() {
+            updateProgress()
+            handler.postDelayed(this, 250)
+        }
+    }
+
+    private val backCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            albumOpen = null
+            refreshList()
+        }
+    }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            loadSongs()
+        }
+
+    private val playerListener = object : Player.Listener {
+        override fun onIsPlayingChanged(isPlaying: Boolean) = updatePlayButton()
+        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) = updateNowPlaying()
+        override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) = updateModeButtons()
+        override fun onRepeatModeChanged(repeatMode: Int) = updateModeButtons()
+        override fun onPlaybackStateChanged(playbackState: Int) = updateProgress()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        adapter = SongAdapter({ row -> onRowClick(row) }, { song -> toggleFavorite(song.id) })
+        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.adapter = adapter
+
+        for (title in tabTitles) {
+            binding.tabs.addTab(binding.tabs.newTab().setText(title))
+        }
+        binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                section = Section.values()[tab.position]
+                albumOpen = null
+                refreshList()
+                binding.list.scrollToPosition(0)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                albumOpen = null
+                refreshList()
+            }
+        })
+
+        binding.tvSection.setOnClickListener {
+            albumOpen = null
+            refreshList()
+        }
+        onBackPressedDispatcher.addCallback(this, backCallback)
+
+        binding.btnPlay.setOnClickListener {
+            val c = controller ?: return@setOnClickListener
+            if (c.isPlaying) c.pause() else c.play()
+        }
+        binding.btnNext.setOnClickListener { controller?.seekToNext() }
+        binding.btnPrev.setOnClickListener { controller?.seekToPrevious() }
+        binding.btnShuffle.setOnClickListener {
+            controller?.let { it.shuffleModeEnabled = !it.shuffleModeEnabled }
+        }
+        binding.btnRepeat.setOnClickListener {
+            controller?.let {
+                it.repeatMode = when (it.repeatMode) {
+                    Player.REPEAT_MODE_OFF -> Player.REPEAT_MODE_ALL
+                    Player.REPEAT_MODE_ALL -> Player.REPEAT_MODE_ONE
+                    else -> Player.REPEAT_MODE_OFF
+                }
+            }
+        }
+        binding.btnFav.setOnClickListener {
+            if (currentSongId >= 0) toggleFavorite(currentSongId)
+        }
+        binding.tvTotal.setOnClickListener {
+            showRemaining = !showRemaining
+            updateProgress()
+        }
+
+        binding.wave.onSeekStart = { userSeeking = true }
+        binding.wave.onSeekChange = { f ->
+            val d = controller?.duration ?: 0L
+            if (d > 0) binding.tvElapsed.text = formatTime((d * f).toLong())
+        }
+        binding.wave.onSeekEnd = { f ->
+            userSeeking = false
+            val c = controller
+            if (c != null && c.duration > 0) c.seekTo((c.duration * f).toLong())
+        }
+
+        requestNeededPermissions()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val token = SessionToken(this, ComponentName(this, PlaybackService::class.java))
+        val future = MediaController.Builder(this, token).buildAsync()
+        controllerFuture = future
+        future.addListener({
+            controller = future.get()
+            controller?.addListener(playerListener)
+            updateAll()
+        }, ContextCompat.getMainExecutor(this))
+        handler.post(ticker)
+        if (songs.isNotEmpty()) refreshList()
+    }
+
+    override fun onStop() {
+        handler.removeCallbacks(ticker)
+        controller?.removeListener(playerListener)
+        controllerFuture?.let { MediaController.releaseFuture(it) }
+        controller = null
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        waveExecutor.shutdownNow()
+        super.onDestroy()
+    }
+
+    // ---------- data ----------
+
+    private fun requestNeededPermissions() {
+        val perms = mutableListOf<String>()
+        if (Build.VERSION.SDK_INT >= 33) {
+            perms.add(Manifest.permission.READ_MEDIA_AUDIO)
+            perms.add(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            perms.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+        val missing = perms.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+        if (missing.isEmpty()) loadSongs() else permissionLauncher.launch(missing.toTypedArray())
+    }
+
+    private fun loadSongs() {
+        songs = MusicRepository.loadSongs(this)
+        refreshList()
+        if (controller != null) updateNowPlaying()
+    }
+
+    private fun computeShown(): List<Song> {
+        return when (section) {
+            Section.ALL -> songs
+            Section.FAV -> songs.filter { favs.contains(it.id) }
+            Section.ADDED -> songs.sortedByDescending { it.dateAdded }.take(100)
+            Section.RECENT -> {
+                val last = Store.lastPlayed(this)
+                songs.filter { last.containsKey(it.id) }
+                    .sortedByDescending { last[it.id] ?: 0L }
+                    .take(100)
+            }
+            Section.MOST -> {
+                val counts = Store.playCounts(this)
+                songs.filter { (counts[it.id] ?: 0) > 0 }
+                    .sortedByDescending { counts[it.id] ?: 0 }
+                    .take(100)
+            }
+            Section.ALBUMS -> {
+                val open = albumOpen
+                if (open == null) emptyList() else songs.filter { it.album == open }
+            }
+        }
+    }
+
+    private fun emptyText(): String {
+        return when (section) {
+            Section.ALL -> "آهنگی پیدا نشد"
+            Section.FAV -> "هنوز آهنگی به علاقه‌مندی‌ها اضافه نکردی. روی قلب کنار هر آهنگ بزن."
+            Section.ADDED -> "آهنگی پیدا نشد"
+            Section.RECENT -> "هنوز آهنگی پخش نکردی."
+            Section.MOST -> "هنوز آهنگی پخش نکردی."
+            Section.ALBUMS -> "آلبومی پیدا نشد"
+        }
+    }
+
+    private fun refreshList() {
+        favs = Store.favorites(this)
+        backCallback.isEnabled = albumOpen != null
+
+        val rows: List<Row>
+        if (section == Section.ALBUMS && albumOpen == null) {
+            shown = emptyList()
+            rows = songs.groupBy { it.album }
+                .map { (album, list) ->
+                    Row(list.first(), album, list.first().artist + " · " + list.size + " آهنگ", album)
+                }
+                .sortedBy { it.title.lowercase() }
+        } else {
+            shown = computeShown()
+            rows = shown.map { Row(it, it.title, it.artist + " - " + it.album, null) }
+        }
+
+        val open = albumOpen
+        binding.tvSection.visibility = if (open != null) View.VISIBLE else View.GONE
+        binding.tvSection.text = "↩  " + (open ?: "")
+        binding.tvCount.text = songs.size.toString() + " آهنگ"
+
+        adapter.submit(rows, favs)
+        binding.empty.text = emptyText()
+        binding.empty.visibility = if (rows.isEmpty()) View.VISIBLE else View.GONE
+        updateHeart()
+    }
+
+    private fun toggleFavorite(id: Long) {
+        Store.toggleFavorite(this, id)
+        refreshList()
+    }
+
+    private fun onRowClick(row: Row) {
+        val key = row.albumKey
+        if (key != null) {
+            albumOpen = key
+            refreshList()
+            binding.list.scrollToPosition(0)
+            return
+        }
+        val song = row.song ?: return
+        val index = shown.indexOfFirst { it.id == song.id }
+        if (index >= 0) playFrom(shown, index)
+    }
+
+    private fun playFrom(list: List<Song>, index: Int) {
+        val c = controller ?: return
+        val items = list.map { s ->
+            MediaItem.Builder()
+                .setMediaId(s.id.toString())
+                .setUri(s.uri)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle(s.title)
+                        .setArtist(s.artist)
+                        .setAlbumTitle(s.album)
+                        .build()
+                )
+                .build()
+        }
+        c.setMediaItems(items, index, 0L)
+        c.prepare()
+        c.play()
+    }
+
+    // ---------- UI updates ----------
+
+    private fun updateAll() {
+        updateNowPlaying()
+        updatePlayButton()
+        updateModeButtons()
+        updateProgress()
+    }
+
+    private fun updateNowPlaying() {
+        val c = controller ?: return
+        val item = c.currentMediaItem
+        val id = item?.mediaId?.toLongOrNull() ?: -1L
+        val song = songs.firstOrNull { it.id == id }
+
+        binding.tvTitle.text = song?.title ?: "چیزی در حال پخش نیست"
+        binding.tvArtist.text = song?.artist ?: "یه آهنگ انتخاب کن"
+        adapter.setCurrent(id)
+
+        if (song == null) {
+            currentSongId = -1L
+            binding.playerArt.setImageDrawable(null)
+            binding.wave.peaks = FloatArray(0)
+        } else if (song.id != currentSongId) {
+            currentSongId = song.id
+            ArtLoader.load(this, song, binding.playerArt, 160)
+            loadWave(song)
+        }
+        updateHeart()
+    }
+
+    private fun loadWave(song: Song) {
+        waveFor = song.id
+        val cached = WaveformExtractor.cached(this, song.id)
+        if (cached != null) {
+            binding.wave.peaks = cached
+            return
+        }
+        binding.wave.peaks = WaveformExtractor.pseudo(song.id, 72)
+        val appCtx = applicationContext
+        waveExecutor.execute {
+            val real = WaveformExtractor.extract(appCtx, song.uri, 72) { waveFor != song.id }
+            if (real != null) {
+                WaveformExtractor.save(appCtx, song.id, real)
+                runOnUiThread {
+                    if (waveFor == song.id) binding.wave.peaks = real
+                }
+            }
+        }
+    }
+
+    private fun updateHeart() {
+        val fav = currentSongId >= 0 && favs.contains(currentSongId)
+        binding.btnFav.setImageResource(if (fav) R.drawable.ic_heart else R.drawable.ic_heart_outline)
+        binding.btnFav.imageTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(this, if (fav) R.color.pink else R.color.text_secondary)
+        )
+    }
+
+    private fun updatePlayButton() {
+        val c = controller ?: return
+        binding.btnPlay.setImageResource(if (c.isPlaying) R.drawable.ic_pause else R.drawable.ic_play)
+    }
+
+    private fun updateModeButtons() {
+        val c = controller ?: return
+        val accent = ContextCompat.getColor(this, R.color.accent)
+        val dim = ContextCompat.getColor(this, R.color.text_secondary)
+        binding.btnShuffle.imageTintList = ColorStateList.valueOf(if (c.shuffleModeEnabled) accent else dim)
+        when (c.repeatMode) {
+            Player.REPEAT_MODE_ONE -> {
+                binding.btnRepeat.setImageResource(R.drawable.ic_repeat_one)
+                binding.btnRepeat.imageTintList = ColorStateList.valueOf(accent)
+            }
+            Player.REPEAT_MODE_ALL -> {
+                binding.btnRepeat.setImageResource(R.drawable.ic_repeat)
+                binding.btnRepeat.imageTintList = ColorStateList.valueOf(accent)
+            }
+            else -> {
+                binding.btnRepeat.setImageResource(R.drawable.ic_repeat)
+                binding.btnRepeat.imageTintList = ColorStateList.valueOf(dim)
+            }
+        }
+    }
+
+    private fun updateProgress() {
+        val c = controller ?: return
+        val dur = if (c.duration > 0) c.duration else 0L
+        val pos = c.currentPosition.coerceAtLeast(0L)
+        if (!userSeeking) {
+            binding.wave.progress = if (dur > 0) pos.toFloat() / dur.toFloat() else 0f
+            binding.tvElapsed.text = formatTime(pos)
+        }
+        binding.tvTotal.text = if (showRemaining) {
+            "-" + formatTime((dur - pos).coerceAtLeast(0L))
+        } else {
+            formatTime(dur)
+        }
+    }
+
+    private fun formatTime(ms: Long): String {
+        val total = ms / 1000
+        return String.format(Locale.US, "%d:%02d", total / 60, total % 60)
+    }
+}
